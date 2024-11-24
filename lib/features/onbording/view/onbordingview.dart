@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mohemti/core/routes/approutes.dart';
 import 'package:mohemti/core/theme/text_style.dart';
+import 'package:mohemti/core/widgets/have_acount_already.dart';
 import 'package:mohemti/core/widgets/my_app_button.dart';
+import 'package:mohemti/core/helper/route_extention.dart';
 
 class OnbordingView extends StatelessWidget {
   const OnbordingView({super.key});
@@ -26,26 +29,19 @@ class OnbordingView extends StatelessWidget {
             height: 10.h,
           ),
           Text('إدارة وتنظيم مهامك اليومية بسهولة',style: AppTextStyles.weight400size16,),
+          
           SizedBox(
             height: 230.h,
           ),
-          MyAppButton(onPressed: (){},mytext: 'تسجيل الدخول',),
+          MyAppButton(onPressed: (){
+            context.pushNamed(AppRoutes.login);
+
+          },mytext: 'تسجيل الدخول',),
           SizedBox(
             height: 17.h,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment. center,
-            children: [
-               Text( 'ليس لديك حساب',style: AppTextStyles.weight400size16,),
-               Text('!',style: AppTextStyles.weight400size16,),
-                 Text(' انشئ حساب',style: AppTextStyles.weight400size16.copyWith(color: Color(0xFF7660CF)),),
-               
-             
-             
-            
-            
-            ],
-          ),
+          dontHaveAcount()
+        ,
           
 
           
