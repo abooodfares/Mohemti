@@ -49,8 +49,10 @@
 		<false/>
 		<key>CFBundleLocalizations</key>
 		<array>
-			<string>en</string> <!-- English -->
-			<string>ar</string> <!-- Arabic -->
+			<string>en</string>
+			<!-- English -->
+			<string>ar</string>
+			<!-- Arabic -->
 		</array>
 	</dict>
 </plist>
