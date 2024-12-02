@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
         ),
         debugShowCheckedModeBanner: false,
         onGenerateRoute: AppRouterManger.generateRoute,
-        initialRoute: AppRoutes.OnBording,
+        initialRoute: AppRoutes.home,
        locale: const Locale('ar'),
       ),
     );
