@@ -3,12 +3,15 @@ import 'package:mohemti/core/routes/approutes.dart';
 import 'package:mohemti/features/auth/login/view/loginview.dart';
 import 'package:mohemti/features/auth/register/view/register_view.dart';
 import 'package:mohemti/features/home/view/home_view.dart';
+import 'package:mohemti/features/home/widgets/Genral_bottomsheet.dart';
 import 'package:mohemti/features/onbording/view/onbordingview.dart';
 class AppRouterManger {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case AppRoutes.OnBording:
         return MaterialPageRoute(builder: (_) => const OnbordingView());
+      case AppRoutes.calendar:
+        return MaterialPageRoute(builder: (_) =>  CalendarExample());
       case AppRoutes.register:
         return MaterialPageRoute(builder: (_) =>  RegisterView());
       case AppRoutes.login:

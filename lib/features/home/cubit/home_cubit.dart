@@ -6,7 +6,7 @@ part 'home_state.dart';
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial());
   List<String> categories = ['الكل', 'العمل', 'الشخصية', 'الصحة', 'الترفيه'];
-  String text = '';
+  String text = ' الكل';
 
 
   void changeCategory(String newCategory) {

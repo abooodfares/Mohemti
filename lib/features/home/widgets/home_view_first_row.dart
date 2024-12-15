@@ -24,6 +24,7 @@ class HomeViewFirstRow extends StatelessWidget {
           ),
           horizontalSpace(5),
           Column(
+            
             children: [
               Text(
                 'مرحبا محمد',

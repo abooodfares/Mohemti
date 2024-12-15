@@ -9,6 +9,7 @@ import 'package:mohemti/core/widgets/my_bottom_navigationbar.dart';
 import 'package:mohemti/features/home/cubit/home_cubit.dart';
 import 'package:mohemti/features/home/widgets/SeeYourActivitySentnce.dart';
 import 'package:mohemti/features/home/widgets/home_view_first_row.dart';
+import 'package:mohemti/features/home/widgets/my_floating_action_button.dart';
 import 'package:mohemti/features/home/widgets/user_task_category.dart';
 
 class HomeView extends StatefulWidget {
@@ -24,22 +25,7 @@ class _HomeViewState extends State<HomeView> {
     return BlocProvider(
       create: (context) => HomeCubit(),
       child: Scaffold(
-        floatingActionButton: Padding(
-          padding: const EdgeInsets.all(30.0),
-          child: Row(
-            children: [
-              FloatingActionButton(
-                  shape: const CircleBorder(),
-                  clipBehavior: Clip.antiAlias,
-                  backgroundColor: appcolors.secondaryColor,
-                  onPressed: () {},
-                  child: Icon(
-                    Icons.add,
-                    color: Colors.white,
-                  )),
-            ],
-          ),
-        ),
+        floatingActionButton:MyflotingActionButton(),
         bottomNavigationBar: Mybottomnavigtionbar(),
         backgroundColor: Color(0xFFFFFFFF),
         body: SafeArea(
@@ -69,3 +55,4 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 }
+
