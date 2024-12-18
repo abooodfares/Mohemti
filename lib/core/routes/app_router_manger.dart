@@ -10,8 +10,8 @@ class AppRouterManger {
     switch (settings.name) {
       case AppRoutes.OnBording:
         return MaterialPageRoute(builder: (_) => const OnbordingView());
-      case AppRoutes.calendar:
-        return MaterialPageRoute(builder: (_) =>  CalendarExample());
+      // case AppRoutes.calendar:
+      //   return MaterialPageRoute(builder: (_) =>  CalendarExample());
       case AppRoutes.register:
         return MaterialPageRoute(builder: (_) =>  RegisterView());
       case AppRoutes.login:
