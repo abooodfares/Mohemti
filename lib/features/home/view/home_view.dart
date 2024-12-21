@@ -23,31 +23,37 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: MyflotingActionButton(),
-      bottomNavigationBar: Mybottomnavigtionbar(),
-      backgroundColor: Color(0xFFFFFFFF),
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            HomeViewFirstRow(),
-            verticalSpace(30),
-            SeeYourActivitySentnce(),
-            verticalSpace(20),
-            Padding(
-              padding: rightPadding(5),
-              child: UserTaskCatecogery(),
-            ),
-            verticalSpace(2),
-            Expanded(
-              child: Container(
-                width: double.infinity,
-                color: appcolors.textgraywhite,
-                child: Center(child: Image.asset('Assets/imgs/no task .png')),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => TaskCubit()),
+        BlocProvider(create: (context) => HomeCubit()),
+      ],
+      child: Scaffold(
+        floatingActionButton: MyflotingActionButton(),
+        bottomNavigationBar: Mybottomnavigtionbar(),
+        backgroundColor: Color(0xFFFFFFFF),
+        body: SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              HomeViewFirstRow(),
+              verticalSpace(30),
+              SeeYourActivitySentnce(),
+              verticalSpace(20),
+              Padding(
+                padding: rightPadding(5),
+                child: UserTaskCatecogery(),
               ),
-            )
-          ],
+              verticalSpace(2),
+              Expanded(
+                child: Container(
+                  width: double.infinity,
+                  color: appcolors.textgraywhite,
+                  child: Center(child: Image.asset('Assets/imgs/no task .png')),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

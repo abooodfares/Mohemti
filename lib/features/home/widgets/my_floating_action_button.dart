@@ -16,21 +16,34 @@ class MyflotingActionButton extends StatelessWidget {
       child: Row(
         children: [
           FloatingActionButton(
-              shape: const CircleBorder(),
-              clipBehavior: Clip.antiAlias,
-              backgroundColor: appcolors.secondaryColor,
-              onPressed: () {
-                showModalBottomSheet(
-                    context: context,
-                    builder: (context) => MyBottomSheet(
-                      child: Genral_bottomsheet(
-                          controller: TextEditingController()),
-                    ));
-              },
-              child: Icon(
-                Icons.add,
-                color: Colors.white,
-              )),
+            shape: const CircleBorder(),
+            clipBehavior: Clip.antiAlias,
+            backgroundColor: appcolors.secondaryColor,
+            onPressed: () {
+              // Use the correct context
+              final taskCubit = BlocProvider.of<TaskCubit>(context);
+              final homeCubit = BlocProvider.of<HomeCubit>(context);
+
+              showModalBottomSheet(
+                context: context,
+                builder: (context) => MyBottomSheet(
+                  child: MultiBlocProvider(
+                    providers: [
+                      BlocProvider.value(value: taskCubit),
+                      BlocProvider.value(value: homeCubit),
+                    ],
+                    child: Genral_bottomsheet(
+                      controller: TextEditingController(),
+                    ),
+                  ),
+                ),
+              );
+            },
+            child: const Icon(
+              Icons.add,
+              color: Colors.white,
+            ),
+          ),
         ],
       ),
     );

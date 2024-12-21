@@ -24,12 +24,8 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       minTextAdapt: true,
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider(create: (context) => HomeCubit()),
-          BlocProvider(create: (context) => TaskCubit()),
-        ],
-        child: MaterialApp(
+      child: 
+         MaterialApp(
           builder: (context, child) {
             // Forces the app to start with RTL direction for Arabic locale
             return Directionality(
@@ -45,7 +41,7 @@ class MyApp extends StatelessWidget {
           initialRoute: AppRoutes.home,
           locale: const Locale('ar'),
         ),
-      ),
+      
     );
   }
 }

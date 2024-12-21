@@ -55,6 +55,7 @@ class _Genral_bottomsheetState extends State<Genral_bottomsheet> {
   Widget build(BuildContext context) {
     var mybloc = context.watch<TaskCubit>();
     var ofbloc = context.read<HomeCubit>();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -82,7 +83,8 @@ class _Genral_bottomsheetState extends State<Genral_bottomsheet> {
                 );
                 if (pickedDate != null) {
                   setState(() {
-                    formattedDate = DateAndTimeFormat.dateAndTimeFormat(pickedDate);
+                    formattedDate =
+                        DateAndTimeFormat.dateAndTimeFormat(pickedDate);
                     mybloc.changeDate(pickedDate);
                   });
                 }
@@ -110,7 +112,10 @@ class _Genral_bottomsheetState extends State<Genral_bottomsheet> {
                 showModalBottomSheet(
                     context: context,
                     builder: (context) => MyBottomSheet(
-                          child: Tecrar_Bottomsheet(),
+                          child: BlocProvider.value(
+                            value: mybloc,
+                            child: Tecrar_Bottomsheet(),
+                          ),
                         ));
 
                 // Action for تكرار
@@ -125,7 +130,10 @@ class _Genral_bottomsheetState extends State<Genral_bottomsheet> {
                 showModalBottomSheet(
                     context: context,
                     builder: (context) => MyBottomSheet(
-                          child: Remidner_Bottomsheet(),
+                          child: BlocProvider.value(
+                            value: mybloc,
+                            child: Remidner_Bottomsheet(),
+                          ),
                         ));
               },
             ),
@@ -143,7 +151,10 @@ class _Genral_bottomsheetState extends State<Genral_bottomsheet> {
                 showModalBottomSheet(
                     context: context,
                     builder: (context) => MyBottomSheet(
-                          child: RankingBotttomsheeet(),
+                          child: BlocProvider.value(
+                            value: mybloc,
+                            child: RankingBotttomsheeet(),
+                          ),
                         ));
               },
             ),
@@ -155,9 +166,9 @@ class _Genral_bottomsheetState extends State<Genral_bottomsheet> {
               onTap: () {
                 showModalBottomSheet(
                     context: context,
-                    builder: (context) => BlocProvider.value(
-                          value: context.read<TaskCubit>(),
-                          child: MyBottomSheet(
+                    builder: (context) => MyBottomSheet(
+                          child: BlocProvider.value(
+                            value: mybloc,
                             child: CategoryBottomSheet(),
                           ),
                         ));
