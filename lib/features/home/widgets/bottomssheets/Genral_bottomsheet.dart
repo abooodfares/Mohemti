@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:mohemti/core/helper/date_and_time_format.dart';
 import 'package:mohemti/core/helper/my_padding_ex.dart';
 import 'package:mohemti/core/helper/route_extention.dart';
 import 'package:mohemti/core/helper/sizedbox%20extention.dart';
@@ -10,8 +12,14 @@ import 'package:mohemti/core/theme/text_style.dart';
 import 'package:mohemti/core/widgets/have_acount_already.dart';
 import 'package:mohemti/core/widgets/my_app_button.dart';
 import 'package:mohemti/core/widgets/my_app_textfield.dart';
+import 'package:mohemti/features/home/cubit/cubit/task_cubit.dart';
+import 'package:mohemti/features/home/cubit/home_cubit.dart';
 import 'package:mohemti/features/home/widgets/TaskDataContainor.dart';
-import 'package:mohemti/features/home/widgets/my_bottomsheet.dart';
+import 'package:mohemti/features/home/widgets/bottomssheets/category_bottomsheet.dart';
+import 'package:mohemti/features/home/widgets/bottomssheets/my_bottomsheet.dart';
+import 'package:mohemti/features/home/widgets/bottomssheets/ranking_bottomsheet.dart';
+import 'package:mohemti/features/home/widgets/bottomssheets/remidner_bottomsheet.dart';
+import 'package:mohemti/features/home/widgets/bottomssheets/tecrar_bottomsheet.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class Genral_bottomsheet extends StatefulWidget {
@@ -38,21 +46,21 @@ class _Genral_bottomsheetState extends State<Genral_bottomsheet> {
     if (picked != null && picked != _selectedTime) {
       setState(() {
         _selectedTime = picked;
+        context.read<TaskCubit>().changeTime(_selectedTime);
       });
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    var mybloc = context.watch<TaskCubit>();
+    var ofbloc = context.read<HomeCubit>();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Text(
-            'إضافة مهام جديدة',
-            style: AppTextStyles.weight500size20black,
-          ),
+        Text(
+          'إضافة مهام جديدة',
+          style: AppTextStyles.weight500size20black,
         ),
         MyTextField(
             controller: widget.controller, labelText: 'ماذا تريد ان تفعل؟'),
@@ -74,7 +82,8 @@ class _Genral_bottomsheetState extends State<Genral_bottomsheet> {
                 );
                 if (pickedDate != null) {
                   setState(() {
-                    formattedDate = DateFormat("yyyy-MM-dd").format(pickedDate);
+                    formattedDate = DateAndTimeFormat.dateAndTimeFormat(pickedDate);
+                    mybloc.changeDate(pickedDate);
                   });
                 }
               },
@@ -94,7 +103,7 @@ class _Genral_bottomsheetState extends State<Genral_bottomsheet> {
           children: [
             TaskDataContainer(
               FirstText: 'تكرار',
-              SecText: 'لا شيء',
+              SecText: mybloc.state.dayrepeat.toString(),
               imgSrc:
                   'Assets/icons/repeat 2.png', // Replace with your custom icon if needed
               onTap: () {
@@ -109,10 +118,16 @@ class _Genral_bottomsheetState extends State<Genral_bottomsheet> {
             ),
             TaskDataContainer(
               FirstText: 'تذكير',
-              SecText: 'لا شيء',
+              SecText: mybloc.state.reminder.toString(),
               imgSrc:
                   'Assets/icons/alarm-clock.png', // Replace with your custom icon if needed
-              onTap: () {},
+              onTap: () {
+                showModalBottomSheet(
+                    context: context,
+                    builder: (context) => MyBottomSheet(
+                          child: Remidner_Bottomsheet(),
+                        ));
+              },
             ),
           ],
         ),
@@ -122,66 +137,45 @@ class _Genral_bottomsheetState extends State<Genral_bottomsheet> {
           children: [
             TaskDataContainer(
               FirstText: 'الأولوية',
-              SecText: 'لا شيء',
+              SecText: mybloc.state.ranking.toString(),
               imgSrc: 'Assets/icons/flag 2.png',
               onTap: () {
-                // Action for الأولوية
+                showModalBottomSheet(
+                    context: context,
+                    builder: (context) => MyBottomSheet(
+                          child: RankingBotttomsheeet(),
+                        ));
               },
             ),
             TaskDataContainer(
               FirstText: 'القسم',
-              SecText: 'لا شيء',
+              SecText: mybloc.state.category ?? '',
               imgSrc:
                   'Assets/icons/element-equal.png', // Replace with your custom icon if needed
               onTap: () {
-                // Action for القسم
+                showModalBottomSheet(
+                    context: context,
+                    builder: (context) => BlocProvider.value(
+                          value: context.read<TaskCubit>(),
+                          child: MyBottomSheet(
+                            child: CategoryBottomSheet(),
+                          ),
+                        ));
               },
             ),
           ],
         ),
         verticalSpace(10),
         MyAppButton(
-          onPressed: () {},
+          onPressed: () {
+            mybloc.changeTitle(widget.controller.text);
+            BlocProvider.of<HomeCubit>(context).addTask(mybloc.state);
+
+            print('hhhhii ${ofbloc.tasks.length}');
+
+            context.pop();
+          },
           mytext: 'اضافة مهمة',
-        )
-      ],
-    );
-  }
-}
-
-class Tecrar_Bottomsheet extends StatefulWidget {
-  const Tecrar_Bottomsheet({super.key});
-
-  @override
-  State<Tecrar_Bottomsheet> createState() => _Tecrar_BottomsheetState();
-}
-
-class _Tecrar_BottomsheetState extends State<Tecrar_Bottomsheet> {
-  bool ontap=false;
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        GestureDetector(
-          onTap: () => setState(() {
-            ontap = !ontap;
-          }),
-          child: Container(
-            margin: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
-            width: double.infinity,
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'تكرار',
-                    style: AppTextStyles.weight500size20black,
-                  ),
-                  Icon( ontap?
-                  Icons.circle_rounded :  Icons.circle_outlined ,
-                    color: (appcolors.secondaryColor),
-                  )
-                ]),
-          ),
         )
       ],
     );
