@@ -2,15 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mohemti/core/routes/app_router_manger.dart';
 import 'package:mohemti/core/routes/approutes.dart';
+import 'package:mohemti/core/services/notiservies/noti_servies.dart';
 import 'package:mohemti/core/theme/colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mohemti/features/home/cubit/cubit/task_cubit.dart';
+
 import 'dart:ui' as ui;
 
 import 'package:mohemti/features/home/cubit/home_cubit.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await ScreenUtil.ensureScreenSize();
+  await NotificationService.initialize();
 
   runApp(const MyApp());
 }
@@ -24,8 +28,9 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       minTextAdapt: true,
-      child: 
-         MaterialApp(
+      child: BlocProvider(
+        create: (context) =>HomeCubit(),
+        child: MaterialApp(
           builder: (context, child) {
             // Forces the app to start with RTL direction for Arabic locale
             return Directionality(
@@ -41,7 +46,7 @@ class MyApp extends StatelessWidget {
           initialRoute: AppRoutes.home,
           locale: const Locale('ar'),
         ),
-      
+      ),
     );
   }
 }

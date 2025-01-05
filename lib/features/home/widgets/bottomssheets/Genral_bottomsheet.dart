@@ -182,7 +182,7 @@ class _Genral_bottomsheetState extends State<Genral_bottomsheet> {
             mybloc.changeTitle(widget.controller.text);
             BlocProvider.of<HomeCubit>(context).addTask(mybloc.state);
 
-            print('hhhhii ${ofbloc.tasks.length}');
+         
 
             context.pop();
           },
@@ -192,3 +192,4 @@ class _Genral_bottomsheetState extends State<Genral_bottomsheet> {
     );
   }
 }
+

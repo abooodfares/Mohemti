@@ -12,24 +12,14 @@ import 'package:mohemti/features/home/cubit/home_cubit.dart';
 import 'package:mohemti/features/home/widgets/bottomssheets/Genral_bottomsheet.dart';
 import 'package:mohemti/features/home/widgets/TaskDataContainor.dart';
 
-class MyBottomSheet extends StatefulWidget {
+class MyBottomSheet extends StatelessWidget {
   final Widget child;
   MyBottomSheet({
     Key? key,
     required this.child,
   }) : super(key: key);
 
-  @override
-  State<MyBottomSheet> createState() => _MyBottomSheetState();
-}
-
-class _MyBottomSheetState extends State<MyBottomSheet> {
   TextEditingController controller = TextEditingController();
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +29,7 @@ class _MyBottomSheetState extends State<MyBottomSheet> {
         alignment: Alignment.centerRight,
         height: MediaQuery.of(context).size.height / 0.5,
         width: double.infinity,
-        child: widget.child,
+        child: child,
       ),
     );
   }

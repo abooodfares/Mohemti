@@ -11,27 +11,23 @@ import 'package:mohemti/features/home/cubit/home_cubit.dart';
 import 'package:mohemti/features/home/widgets/SeeYourActivitySentnce.dart';
 import 'package:mohemti/features/home/widgets/home_view_first_row.dart';
 import 'package:mohemti/features/home/widgets/my_floating_action_button.dart';
+import 'package:mohemti/features/home/widgets/no_task_img.dart';
+import 'package:mohemti/features/home/widgets/task_in_home_view.dart';
+import 'package:mohemti/features/home/widgets/tasks_list_view.dart';
 import 'package:mohemti/features/home/widgets/user_task_category.dart';
-
-class HomeView extends StatefulWidget {
+class HomeView extends StatelessWidget {
   const HomeView({super.key});
 
-  @override
-  State<HomeView> createState() => _HomeViewState();
-}
-
-class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => TaskCubit()),
-        BlocProvider(create: (context) => HomeCubit()),
       ],
       child: Scaffold(
-        floatingActionButton: MyflotingActionButton(),
-        bottomNavigationBar: Mybottomnavigtionbar(),
-        backgroundColor: Color(0xFFFFFFFF),
+        floatingActionButton: const MyflotingActionButton(),
+        bottomNavigationBar: const Mybottomnavigtionbar(),
+        backgroundColor: const Color(0xFFFFFFFF),
         body: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,13 +41,21 @@ class _HomeViewState extends State<HomeView> {
                 child: UserTaskCatecogery(),
               ),
               verticalSpace(2),
-              Expanded(
-                child: Container(
-                  width: double.infinity,
-                  color: appcolors.textgraywhite,
-                  child: Center(child: Image.asset('Assets/imgs/no task .png')),
-                ),
-              )
+              BlocBuilder<HomeCubit, HomeState>(
+                builder: (context, state) {
+                  // Handle tasks
+                  final tasks = BlocProvider.of<HomeCubit>(context).tasks;
+
+                  if (tasks.isEmpty) {
+                    return const NoTaskImg();
+                  }
+                  if (state is AddTask) {
+                    return const TasksListVIew();
+                  }
+
+                  return const TasksListVIew();
+                },
+              ),
             ],
           ),
         ),
@@ -59,3 +63,5 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 }
+
+

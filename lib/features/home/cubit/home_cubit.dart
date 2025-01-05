@@ -10,11 +10,12 @@ part 'home_state.dart';
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial());
   List<String> categories = ['الكل', 'العمل', 'الشخصية', 'الصحة', 'الترفيه'];
-  String text = ' الكل';
+  String text = 'الكل';
 
   List<Taskmodel> tasks = [];
   void addTask(Taskmodel task) {
     tasks.add(task);
+    emit(AddTask());
   }
   
 
