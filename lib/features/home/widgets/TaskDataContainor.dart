@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mohemti/core/helper/my_padding_ex.dart';
 import 'package:mohemti/core/helper/sizedbox%20extention.dart';
+import 'package:mohemti/core/theme/colors.dart';
 import 'package:mohemti/core/theme/text_style.dart';
 import 'package:mohemti/core/widgets/my_app_button.dart';
 
@@ -51,7 +52,7 @@ class TaskDataContainer extends StatelessWidget {
               child: Text(
                 SecText,
                 style: AppTextStyles.weight400size16
-                    .copyWith(color: Color(0xFF8D97A1)),
+                    .copyWith(color: appcolors.secondaryColor),
               ),
             ),
           

@@ -20,44 +20,49 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (context) => TaskCubit()),
-      ],
-      child: Scaffold(
-        floatingActionButton: const MyflotingActionButton(),
-        bottomNavigationBar: const Mybottomnavigtionbar(),
-        backgroundColor: const Color(0xFFFFFFFF),
-        body: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              HomeViewFirstRow(),
-              verticalSpace(30),
-              SeeYourActivitySentnce(),
-              verticalSpace(20),
-              Padding(
-                padding: rightPadding(5),
-                child: UserTaskCatecogery(),
+    return Scaffold(
+      floatingActionButton: MyflotingActionButton(),
+      bottomNavigationBar: Mybottomnavigtionbar(),
+      backgroundColor: Color(0xFFFFFFFFF),
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const HomeViewFirstRow(),
+            verticalSpace(30),
+            SeeYourActivitySentnce(),
+            verticalSpace(20),
+            Padding(
+              padding: rightPadding(5),
+              child: UserTaskCatecogery(),
+            ),
+            verticalSpace(2),
+            Expanded(
+              child: Container(
+                
+                width: double.infinity,
+              
+                color: Colors.grey.withOpacity(0.2),
+                child: BlocBuilder<HomeCubit, HomeState>(
+                  builder: (context, state) {
+                    // Handle tasks
+                    final tasks = BlocProvider.of<HomeCubit>(context).tasks;
+                    
+                    if (tasks.isEmpty) {
+                      return const NoTaskImg();
+                    }
+                    if (state is AddTask) {
+                      return   TasksListView();
+                    }
+                    
+                    
+                    
+                    return TasksListView();
+                  },
+                ),
               ),
-              verticalSpace(2),
-              BlocBuilder<HomeCubit, HomeState>(
-                builder: (context, state) {
-                  // Handle tasks
-                  final tasks = BlocProvider.of<HomeCubit>(context).tasks;
-
-                  if (tasks.isEmpty) {
-                    return const NoTaskImg();
-                  }
-                  if (state is AddTask) {
-                    return const TasksListVIew();
-                  }
-
-                  return const TasksListVIew();
-                },
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

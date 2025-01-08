@@ -5,7 +5,8 @@ import 'package:mohemti/features/auth/login/view/loginview.dart';
 import 'package:mohemti/features/auth/register/view/register_view.dart';
 import 'package:mohemti/features/home/cubit/home_cubit.dart';
 import 'package:mohemti/features/home/view/home_view.dart';
-import 'package:mohemti/features/home/widgets/bottomssheets/Genral_bottomsheet.dart';
+import 'package:mohemti/core/widgets/bottomssheets/Genral_bottomsheet.dart';
+import 'package:mohemti/features/home/view/task_detalis.dart';
 import 'package:mohemti/features/onbording/view/onbordingview.dart';
 
 class AppRouterManger {
@@ -22,6 +23,7 @@ class AppRouterManger {
       case AppRoutes.home:
         return MaterialPageRoute(
             builder: (_) => HomeView());
+      
       default:
         return MaterialPageRoute(builder: (_) => const Scaffold());
     }

@@ -15,11 +15,11 @@ import 'package:mohemti/core/widgets/my_app_textfield.dart';
 import 'package:mohemti/features/home/cubit/cubit/task_cubit.dart';
 import 'package:mohemti/features/home/cubit/home_cubit.dart';
 import 'package:mohemti/features/home/widgets/TaskDataContainor.dart';
-import 'package:mohemti/features/home/widgets/bottomssheets/category_bottomsheet.dart';
-import 'package:mohemti/features/home/widgets/bottomssheets/my_bottomsheet.dart';
-import 'package:mohemti/features/home/widgets/bottomssheets/ranking_bottomsheet.dart';
-import 'package:mohemti/features/home/widgets/bottomssheets/remidner_bottomsheet.dart';
-import 'package:mohemti/features/home/widgets/bottomssheets/tecrar_bottomsheet.dart';
+import 'package:mohemti/core/widgets/bottomssheets/category_bottomsheet.dart';
+import 'package:mohemti/core/widgets/bottomssheets/my_bottomsheet.dart';
+import 'package:mohemti/core/widgets/bottomssheets/ranking_bottomsheet.dart';
+import 'package:mohemti/core/widgets/bottomssheets/remidner_bottomsheet.dart';
+import 'package:mohemti/core/widgets/bottomssheets/tecrar_bottomsheet.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class Genral_bottomsheet extends StatefulWidget {
@@ -36,7 +36,7 @@ class Genral_bottomsheet extends StatefulWidget {
 
 class _Genral_bottomsheetState extends State<Genral_bottomsheet> {
   TimeOfDay _selectedTime = TimeOfDay.now();
-  String formattedDate = 'لا شيء';
+  String formattedDate =  DateAndTimeFormat.dateAndTimeFormat(DateTime.now());
 
   Future<void> _selectTime(BuildContext context) async {
     final TimeOfDay? picked = await showTimePicker(
@@ -54,7 +54,7 @@ class _Genral_bottomsheetState extends State<Genral_bottomsheet> {
   @override
   Widget build(BuildContext context) {
     var mybloc = context.watch<TaskCubit>();
-    var ofbloc = context.read<HomeCubit>();
+
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,7 +79,7 @@ class _Genral_bottomsheetState extends State<Genral_bottomsheet> {
                   context: context,
                   initialDate: DateTime.now(),
                   firstDate: DateTime.now(),
-                  lastDate: DateTime(2101),
+                  lastDate: DateTime(2200),
                 );
                 if (pickedDate != null) {
                   setState(() {
@@ -180,7 +180,7 @@ class _Genral_bottomsheetState extends State<Genral_bottomsheet> {
         MyAppButton(
           onPressed: () {
             mybloc.changeTitle(widget.controller.text);
-            BlocProvider.of<HomeCubit>(context).addTask(mybloc.state);
+           BlocProvider.of<HomeCubit>(context).addTask(mybloc.state);
 
          
 

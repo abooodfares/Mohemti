@@ -17,9 +17,16 @@ class HomeCubit extends Cubit<HomeState> {
     tasks.add(task);
     emit(AddTask());
   }
-  
 
-  
+  void updateTask(Taskmodel task, int index) {
+    tasks[index] = task;
+    emit(UpdateTask());
+  }
+
+  void deleteTask(int index) {
+    tasks.removeAt(index);
+    emit(DeleteTask());
+  }
 
   void changeCategory(String newCategory) {
     text = newCategory;

@@ -10,10 +10,10 @@ class TaskCubit extends Cubit<Taskmodel> {
       title: 'test',
       time: TimeOfDay.now(),
       date: DateTime.now(),
-      category: 'test',
-      dayrepeat: 'test',
-      ranking: 0,
-      reminder: 0
+      category: 'الصحة',
+      dayrepeat: 'يوميا',
+      ranking:    1,
+      reminder:1
 
 
   ));
