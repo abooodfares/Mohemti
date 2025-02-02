@@ -31,18 +31,18 @@ class TaskInHomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var taskcubit = context.watch<TaskCubit>();
+    // var taskcubit = context.watch<TaskCubit>();
 
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => BlocProvider.value(
-              value: taskcubit,
-              child: TaskDetails(task: task, index: index),
-            ),
-          ),
-        );
+        // Navigator.of(context).push(
+        //   MaterialPageRoute(
+        //     builder: (context) => BlocProvider.value(
+        //       value: taskcubit,
+        //       child: TaskDetails(task: task, index: index),
+        //     ),
+        //   ),
+        // );
       },
       child: Container(
         margin: EdgeInsets.all(10.w),

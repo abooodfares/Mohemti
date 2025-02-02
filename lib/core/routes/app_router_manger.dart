@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mohemti/core/routes/approutes.dart';
 import 'package:mohemti/features/auth/login/view/loginview.dart';
 import 'package:mohemti/features/auth/register/view/register_view.dart';
+import 'package:mohemti/features/clander/calender_view.dart';
 import 'package:mohemti/features/home/cubit/home_cubit.dart';
 import 'package:mohemti/features/home/view/home_view.dart';
 import 'package:mohemti/core/widgets/bottomssheets/Genral_bottomsheet.dart';
@@ -21,9 +22,10 @@ class AppRouterManger {
       case AppRoutes.login:
         return MaterialPageRoute(builder: (_) => LoginView());
       case AppRoutes.home:
-        return MaterialPageRoute(
-            builder: (_) => HomeView());
-      
+        return MaterialPageRoute(builder: (_) => HomeView());
+      case AppRoutes.calendar:
+        return MaterialPageRoute(builder: (_) => CalenderView());
+
       default:
         return MaterialPageRoute(builder: (_) => const Scaffold());
     }
